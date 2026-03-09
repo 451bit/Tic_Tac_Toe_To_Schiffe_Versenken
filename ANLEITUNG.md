@@ -29,18 +29,46 @@ In diesem Projekt erweitert ihr eine Netzwerk-Vorlage zu einem vollständigen **
 
 ---
 
-## Vorbereitung: Was müsst ihr vor dem Codieren tun?
+## Arbeitsreihenfolge – Übersicht
 
-**Bevor ihr anfangt zu programmieren**, müsst ihr euch als Team auf ein gemeinsames **Protokoll** einigen!
-
-> Lest dazu die Datei **[PROTOKOLL_ANLEITUNG.md](PROTOKOLL_ANLEITUNG.md)** und arbeitet das Protokoll zusammen aus.
-
-Warum ist das so wichtig?  
-Spieler 1 (Server) und Spieler 2 (Client) schreiben ihren Code unabhängig voneinander. Wenn sie unterschiedliche Nachrichten verwenden – z.B. einer schreibt `"HIT:3,5"` und der andere erwartet `"TREFFER:3,5"` – versteht keiner den anderen. Das Protokoll ist die gemeinsame Sprache beider Spieler.
+```
+Schritt 0 │ Tic-Tac-Toe ausprobieren + Code lesen          (zusammen, ~10 min)
+Schritt 1 │ Vorlage starten + GUI erkunden                  (zusammen, ~10 min)
+Schritt 2 │ Protokoll entwerfen + dokumentieren             (als Team, ~30 min)
+          │  └─ PROTOKOLL_ANLEITUNG.md lesen
+          │  └─ UNSER_PROTOKOLL.md gemeinsam ausfüllen
+──────────┼────────────────────────────────────────────────────────────────────
+          │          AB HIER: JEDER PROGRAMMIERT FÜR SICH
+──────────┼────────────────────────────────────────────────────────────────────
+Schritt 3 │ AUFGABE 1 – Protokoll-Konstanten eintragen      (5 min)
+Schritt 4 │ AUFGABE 2 – send_message() implementieren       (10 min)
+Schritt 5 │ AUFGABE 8 – on_ready_click() senden             (5 min)
+          │  └─ Test: Bereit-Nachricht wird gesendet/empfangen?
+Schritt 6 │ AUFGABE 3 – handle_message() implementieren     (20 min)
+          │  └─ Test: Spiel startet wenn beide "Fertig" klicken?
+Schritt 7 │ AUFGABE 7 – on_shoot() senden                   (5 min)
+Schritt 8 │ AUFGABE 4 – process_shot() implementieren       (20 min)
+Schritt 9 │ AUFGABE 5 – check_sunk() implementieren         (5 min)
+Schritt 10│ AUFGABE 6 – check_all_sunk() implementieren     (5 min)
+          │  └─ Test: Komplettes Spiel durchspielen
+Schritt 11│ Netzwerktest: zwei Computer                     (10 min)
+```
 
 ---
 
-## Schritt 0: Vorlage verstehen und starten
+## Schritt 0: Tic-Tac-Toe ausprobieren
+
+Startet das fertige Tic-Tac-Toe, um die Netzwerkgrundlage zu verstehen:
+
+```
+Terminal 1: python tictactoe_gui_net.py   → wählt "Server"
+Terminal 2: python tictactoe_gui_net.py   → wählt "Client" + IP 127.0.0.1
+```
+
+Spielt eine Runde und schaut euch dabei den Code an. Achtet besonders auf:
+- Wie wird eine Nachricht gesendet? (`send_move`)
+- Wie wird eine Nachricht empfangen? (`receive_move`)
+- Welches Format hat die Nachricht? (`"row,col"`)
 
 ### Dateien im Projekt
 
@@ -51,35 +79,44 @@ Spieler 1 (Server) und Spieler 2 (Client) schreiben ihren Code unabhängig vonei
 | `ANLEITUNG.md` | Diese Datei |
 | `PROTOKOLL_ANLEITUNG.md` | Anleitung zum Protokoll-Entwurf |
 
-### Vorlage starten
+---
 
-Startet erst das fertige Tic-Tac-Toe, um die Netzwerkgrundlage zu verstehen:
-
-```
-Terminal 1: python tictactoe_gui_net.py   → wählt "Server"
-Terminal 2: python tictactoe_gui_net.py   → wählt "Client" + IP 127.0.0.1
-```
-
-Spielt ein Runde, schaut euch dabei den Code an. Dann wechselt zur Vorlage:
+## Schritt 1: Vorlage starten und GUI erkunden
 
 ```
 Terminal 1: python schiffe_versenken_vorlage.py   → wählt "Server"
 Terminal 2: python schiffe_versenken_vorlage.py   → wählt "Client" + IP 127.0.0.1
 ```
 
-Die GUI sollte erscheinen. Ihr könnt Schiffe auf dem eigenen Feld platzieren (linkes Feld, Mausklick). Das Spiel startet noch nicht, weil `send_message()` noch nicht funktioniert.
+Die GUI erscheint. Probiert aus:
+- Schiffe auf dem linken Feld platzieren (Mausklick)
+- Ausrichtung umschalten (Button unten links)
+- "Fertig" klicken – **noch nichts passiert**, weil `send_message()` fehlt
 
 ### Wo findet ihr eure Aufgaben?
 
-Öffnet `schiffe_versenken_vorlage.py` und sucht nach dem Text `❗ AUFGABE`. Ihr findet 8 markierte Stellen.
+Öffnet `schiffe_versenken_vorlage.py` und sucht nach `❗ AUFGABE`. Ihr findet 8 markierte Stellen.
 
 ---
 
-## Schritt 1: Protokoll-Konstanten definieren (AUFGABE 1)
+## Schritt 2: Protokoll entwerfen (als ganzes Team!)
 
-Nachdem ihr das Protokoll gemeinsam festgelegt habt (siehe PROTOKOLL_ANLEITUNG.md), tragt ihr die Nachrichten als Konstanten ein.
+**Bevor ihr anfangt zu programmieren**, müsst ihr euch als Team auf ein gemeinsames **Protokoll** einigen!
 
-**Wo:** Ganz oben im Aufgaben-Bereich, bei `❗ AUFGABE 1`
+> Lest dazu **[PROTOKOLL_ANLEITUNG.md](PROTOKOLL_ANLEITUNG.md)** und erstellt gemeinsam eine Datei `UNSER_PROTOKOLL.md`.
+
+Warum ist das so wichtig?  
+Spieler 1 (Server) und Spieler 2 (Client) schreiben ihren Code unabhängig voneinander. Wenn sie unterschiedliche Nachrichten verwenden – z.B. einer schreibt `"HIT:3,5"` und der andere erwartet `"TREFFER:3,5"` – versteht keiner den anderen. Das Protokoll ist die gemeinsame Sprache beider Spieler.
+
+**Ergebnis von Schritt 2:** Eine gemeinsam vereinbarte `UNSER_PROTOKOLL.md` mit allen Nachrichten, ihrem Format und der Zuglogik.
+
+---
+
+## Schritt 3: AUFGABE 1 – Protokoll-Konstanten definieren
+
+**Wo:** Ganz oben im Aufgaben-Bereich der Datei `schiffe_versenken_vorlage.py`, bei `❗ AUFGABE 1`
+
+Nachdem ihr in Schritt 2 das Protokoll gemeinsam festgelegt habt, tragt ihr jetzt eure Nachrichten als Konstanten ein.
 
 **Beispiel** (ihr könnt andere Namen/Formate wählen):
 
@@ -96,7 +133,7 @@ MSG_WIN   = "VERLOREN"     # Alle eigenen Schiffe versenkt → Gegner hat gewonn
 
 ---
 
-## Schritt 2: Nachrichten senden (AUFGABE 2)
+## Schritt 4: AUFGABE 2 – Nachrichten senden
 
 **Wo:** Funktion `send_message(msg)` bei `❗ AUFGABE 2`
 
@@ -120,7 +157,7 @@ def send_message(msg):
 
 ### Testen
 
-Nach dem Implementieren von `send_message()` noch Aufgabe 8 lösen (Bereit-Nachricht senden). Dann könnt ihr testen:
+Diese Funktion allein ist noch nicht testbar – macht direkt weiter mit Schritt 5 (AUFGABE 8), danach könnt ihr testen:
 
 1. Starte beide Instanzen
 2. Platziere alle Schiffe (linkes Feld, Mausklick)
@@ -130,11 +167,44 @@ Nach dem Implementieren von `send_message()` noch Aufgabe 8 lösen (Bereit-Nachr
 
 ---
 
-## Schritt 3: Nachrichten empfangen und verarbeiten (AUFGABE 3)
+## Schritt 5: AUFGABE 8 – Bereit melden
+
+**Wo:** Funktion `on_ready_click()` bei `❗ AUFGABE 8`
+
+Wenn "Fertig" geklickt wird, muss der Gegner informiert werden:
+
+```python
+def on_ready_click():
+    global i_am_ready, game_phase
+    # ... (bestehender Code bleibt)
+    
+    # ❗ Eure Zeile:
+    send_message(MSG_READY)
+    
+    check_both_ready()
+```
+
+### Testen nach Schritt 4 + 5
+
+1. Starte beide Instanzen
+2. Platziere alle Schiffe (linkes Feld, Mausklick)
+3. Klicke "Fertig"
+4. Terminal prüfen: erscheint `[GESENDET] FERTIG` (oder eure Nachricht)?
+5. Auf der anderen Seite: erscheint `[EMPFANGEN] FERTIG`?
+
+Wenn das klappt, funktioniert die Netzwerkverbindung grundsätzlich!
+
+---
+
+## Schritt 6: AUFGABE 3 – Nachrichten empfangen und verarbeiten
 
 Das ist **die wichtigste Aufgabe**. Die Funktion `handle_message(msg)` reagiert auf alle eingehenden Nachrichten.
 
 **Wo:** Funktion `handle_message(msg)` bei `❗ AUFGABE 3`
+
+### Testen nach Schritt 6
+
+Nach Schritt 6 sollte das Spiel starten wenn beide "Fertig" klicken. Schießen klappt noch nicht (Schritt 7 fehlt).
 
 ### Welche Nachrichten müsst ihr verarbeiten?
 
@@ -199,11 +269,15 @@ def handle_message(msg):
 
 ---
 
-## Schritt 4: Schuss abschicken (AUFGABE 7)
+## Schritt 7: AUFGABE 7 – Schuss abschicken
 
 **Wo:** Funktion `on_shoot(row, col)` bei `❗ AUFGABE 7`
 
 Wenn der Spieler auf das Gegnerfeld klickt, soll eine Schuss-Nachricht gesendet werden.
+
+### Testen nach Schritt 7
+
+Jetzt sollte ein Klick auf das Gegnerfeld eine Nachricht senden. Im Terminal erscheint `[GESENDET] SCHUSS:x,y`. Der Gegner empfängt sie, kann aber noch nicht reagieren (Schritt 8 fehlt).
 
 ```python
 def on_shoot(row, col):
@@ -219,26 +293,7 @@ def on_shoot(row, col):
 
 ---
 
-## Schritt 5: Bereit melden (AUFGABE 8)
-
-**Wo:** Funktion `on_ready_click()` bei `❗ AUFGABE 8`
-
-Wenn "Fertig" geklickt wird, muss der Gegner informiert werden:
-
-```python
-def on_ready_click():
-    global i_am_ready, game_phase
-    # ... (bestehender Code bleibt)
-    
-    # ❗ Eure Zeile:
-    send_message(MSG_READY)
-    
-    check_both_ready()
-```
-
----
-
-## Schritt 6: Schuss des Gegners verarbeiten (AUFGABE 4)
+## Schritt 8: AUFGABE 4 – Schuss des Gegners verarbeiten
 
 **Wo:** Funktion `process_shot(row, col)` bei `❗ AUFGABE 4`
 
@@ -292,37 +347,40 @@ def process_shot(row, col):
 
 ---
 
-## Schritt 7: Spiellogik implementieren (AUFGABEN 5 & 6)
+## Schritt 9: AUFGABE 5 – check_sunk() implementieren
 
-### check_sunk() – AUFGABE 5
+**Wo:** Funktion `check_sunk(ship_cells)` bei `❗ AUFGABE 5`
+
+Prüft ob alle Zellen eines Schiffes den Zustand `HIT` haben:
 
 ```python
 def check_sunk(ship_cells):
     return all(my_grid[r][c] == HIT for (r, c) in ship_cells)
 ```
 
-### check_all_sunk() – AUFGABE 6
+---
+
+## Schritt 10: AUFGABE 6 – check_all_sunk() implementieren
+
+**Wo:** Funktion `check_all_sunk()` bei `❗ AUFGABE 6`
+
+Prüft ob alle Schiffe in `my_ships` vollständig versenkt sind:
 
 ```python
 def check_all_sunk():
     return all(check_sunk(schiff) for schiff in my_ships)
 ```
 
+### Testen nach Schritten 8–10
+
+Jetzt sollte ein komplettes Spiel durchgespielt werden können! Spielt lokal auf einem Computer (IP `127.0.0.1`) und prüft:
+- Schüsse landen auf dem richtigen Feld?
+- Treffer/Wasser wird korrekt angezeigt?
+- Spiel endet wenn alle Schiffe versenkt sind?
+
 ---
 
-## Testen und Debuggen
-
-### Lokaler Test (ein Computer)
-
-Öffnet zwei Terminals und startet das Programm zweimal:
-```
-Terminal 1: python schiffe_versenken_vorlage.py  → Server
-Terminal 2: python schiffe_versenken_vorlage.py  → Client, IP: 127.0.0.1
-```
-
-`127.0.0.1` ist die sogenannte **Loopback-Adresse** – der Computer verbindet sich mit sich selbst.
-
-### Netzwerk-Test (zwei Computer)
+## Schritt 11: Netzwerktest – zwei Computer
 
 1. Findet die IP-Adresse des Server-Computers:  
    Windows: Eingabeaufforderung öffnen → `ipconfig` eingeben  
@@ -332,7 +390,20 @@ Terminal 2: python schiffe_versenken_vorlage.py  → Client, IP: 127.0.0.1
 
 3. Möglicherweise muss die **Firewall** Port 65432 freigeben (fragt euren Lehrer)
 
-### Debugging-Tipps
+---
+
+## Debugging-Tipps
+
+### Lokaler Test (ein Computer, für alle Schritte)
+
+```
+Terminal 1: python schiffe_versenken_vorlage.py  → Server
+Terminal 2: python schiffe_versenken_vorlage.py  → Client, IP: 127.0.0.1
+```
+
+`127.0.0.1` ist die sogenannte **Loopback-Adresse** – der Computer verbindet sich mit sich selbst.
+
+### Print-Ausgaben nutzen
 
 Die `print()`-Ausgaben im Terminal helfen euch:
 - `[GESENDET] ...` – Was ihr gesendet habt
