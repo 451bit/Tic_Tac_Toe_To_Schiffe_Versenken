@@ -25,7 +25,7 @@
 | MSG_SHOOT  | `Fire` | `zeile,spalte` | Wenn Spieler auf Gegnerfeld klickt |
 | MSG_HIT    | `Hit` | `zeile,spalte` | Wenn Schuss ins Schwarze trifft |
 | MSG_MISS   | `Airball` | `zeile,spalte` | Wenn Schuss Wasser trifft |
-| MSG_SUNK   | `Sunk' | 'zeile1,spalte1,zeile2,spalte2,usw` | Wenn Schiff vollständig versenkt |
+| MSG_SUNK   | `Sunk` | `zeile1,spalte1,zeile2,spalte2,usw` | Wenn Schiff vollständig versenkt |
 | MSG_WIN    | `Fullbox200Pump` | keine | Wenn alle eigenen Schiffe versenkt |
 | MSG_CHAT    | `Chat:text` | keine | Wenn alle eigenen Schiffe versenkt |
 | MSG_SURRENDER    | `Surrender` | keine | Wenn alle eigenen Schiffe versenkt |
