@@ -200,7 +200,7 @@ Wenn das klappt, funktioniert die Netzwerkverbindung grundsätzlich!
 
 > 📚 **Neue Python-Konzepte in dieser Aufgabe?**
 > Diese Aufgabe nutzt `split()`, `map()`, Mehrfachzuweisungen, `if/elif/else` und Funktionsaufrufe mit Rückgabewert.
-> → [**Python-Übungsseite öffnen**](python_uebungen.html) – mit Erklärungen und Übungsaufgaben zu allen nötigen Grundlagen.
+> → [**Python-Übungsseite öffnen**](python_uebungen.md) – mit Erklärungen und Übungsaufgaben zu allen nötigen Grundlagen.
 
 Das ist **die wichtigste Aufgabe**. Die Funktion `handle_message(msg)` reagiert auf alle eingehenden Nachrichten.
 
