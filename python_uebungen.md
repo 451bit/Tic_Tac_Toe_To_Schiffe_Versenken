@@ -53,7 +53,7 @@ spalte  = coords[1]              # "5"
 
 1. Gegeben: `s = "rot,grün,blau,gelb"`. Teile den String auf und gib das dritte Element aus.
 2. Gegeben: `msg = "WASSER:7,2"`. Schreibe Code, der `befehl`, `zeile` und `spalte` als separate Variablen enthält.
-3. Schreibe eine Funktion `parse_msg(msg)`, die eine Nachricht im Format `"BEFEHL:zeile,spalte"` entgegennimmt und ein Tupel `(befehl, zeile, spalte)` zurückgibt (`zeile` und `spalte` als `int`).
+3. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `parse_msg(msg)`, die eine Nachricht im Format `"BEFEHL:zeile,spalte"` entgegennimmt und ein [Tupel](#5-tupel) `(befehl, zeile, spalte)` zurückgibt (`zeile` und `spalte` als `int`).
 
 ---
 
@@ -88,7 +88,7 @@ zeile, spalte = map(int, "3,5".split(","))
 
 1. Gegeben: `text = "10,20,30"`. Nutze `map()`, um drei Integer-Variablen `a`, `b`, `c` zu befüllen.
 2. Was passiert, wenn du `x, y = map(int, "3,5,7".split(","))` ausführst? Probiere es aus und erkläre die Fehlermeldung.
-3. Schreibe eine Funktion `parse_coords(text)`, die einen String wie `"3,5"` entgegennimmt und ein Tupel `(int, int)` zurückgibt.
+3. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `parse_coords(text)`, die einen String wie `"3,5"` entgegennimmt und ein [Tupel](#5-tupel) `(int, int)` zurückgibt.
 
 ---
 
@@ -151,7 +151,7 @@ if check_sunk(mein_schiff):
 1. Schreibe eine Funktion `begruessung(name)`, die `"Hallo, [name]!"` ausgibt. Rufe sie mit deinem Namen auf.
 2. Schreibe eine Funktion `quadrat(n)`, die `n * n` zurückgibt. Gib das Ergebnis für `n = 7` aus.
 3. Schreibe eine Funktion `ist_treffer(wert)`, die `True` zurückgibt, wenn `wert == "X"`, sonst `False`.
-4. Schreibe eine Funktion `feld_name(zeile, spalte)`, die den Feldnamen zurückgibt (z.B. `zeile=3, spalte=5` → `"F4"`). Tipp: Spalte A = 0, B = 1, ... – nutze `chr(65 + spalte)`.
+4. Schreibe eine Funktion `feld_name(zeile, spalte)`, die den Feldnamen zurückgibt (z.B. `zeile=3, spalte=5` → `"F4"`). Tipp: Spalte A = 0, B = 1, ... – nutze [`chr(65 + spalte)`](#6-zeichen-und-ascii-chr-und-ord).
 
 ---
 
@@ -216,7 +216,7 @@ for (zeile, spalte) in schiff:
 1. Erstelle eine Liste mit den Zahlen 1 bis 5 und gib das dritte Element aus.
 2. Erstelle ein 4×4 Spielfeld (als Liste von Listen), bei dem alle Felder den Wert `"."` haben. Setze das Feld in Zeile 2, Spalte 3 auf `"X"`.
 3. Gegeben: `my_ships = [[(0,0),(0,1)], [(3,5)], [(7,2),(7,3),(7,4)]]`. Gib aus, wie viele Schiffe es gibt und wie viele Felder das dritte Schiff belegt.
-4. Schreibe eine Funktion `setze_schiff(grid, schiff_felder)`, die alle Felder aus `schiff_felder` im Grid auf `"S"` setzt.
+4. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `setze_schiff(grid, schiff_felder)`, die alle Felder aus `schiff_felder` im Grid auf `"S"` setzt.
 
 ---
 
@@ -264,8 +264,8 @@ for r, c in schiff:
 
 1. Erstelle ein Tupel `schuss = (4, 7)` und entpacke es in `zeile` und `spalte`. Gib beide aus.
 2. Erkläre: Was passiert, wenn du versuchst `schuss[0] = 9` auszuführen? Warum ist das so?
-3. Gegeben: `treffer_liste = [(1,2), (1,3), (1,4)]`. Schreibe eine for-Schleife, die jede Koordinate entpackt und `"Getroffen: Zeile X, Spalte Y"` ausgibt.
-4. Schreibe eine Funktion `mittelpunkt(p1, p2)`, die zwei Koordinaten-Tupel bekommt und den Mittelpunkt als neues Tupel zurückgibt. Beispiel: `mittelpunkt((2,4), (6,8))` → `(4, 6)`.
+3. Gegeben: `treffer_liste = [(1,2), (1,3), (1,4)]`. Schreibe eine [for-Schleife](#8-for-schleifen-mit-iterierbaren-objekten), die jede Koordinate entpackt und `"Getroffen: Zeile X, Spalte Y"` ausgibt.
+4. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `mittelpunkt(p1, p2)`, die zwei Koordinaten-[Tupel](#5-tupel) bekommt und den Mittelpunkt als neues Tupel zurückgibt. Beispiel: `mittelpunkt((2,4), (6,8))` → `(4, 6)`.
 
 ---
 
@@ -308,8 +308,8 @@ print(feld_name(0, 0))   # "A1"
 
 1. Welches Zeichen ergibt `chr(72)`? Finde die Antwort per Code.
 2. Schreibe eine Schleife, die alle Spaltenbuchstaben A bis J ausgibt (also für Spalten 0 bis 9).
-3. Schreibe eine Funktion `buchstabe_zu_spalte(buchstabe)`, die den umgekehrten Weg geht: `"A"` → 0, `"F"` → 5. Nutze `ord()`.
-4. Erstelle eine Liste `spaltennamen`, die alle Buchstaben von A bis J enthält. Verwende eine List Comprehension mit `chr()`.
+3. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `buchstabe_zu_spalte(buchstabe)`, die den umgekehrten Weg geht: `"A"` → 0, `"F"` → 5. Nutze `ord()`.
+4. Erstelle eine [Liste](#4-listen-als-arrays) `spaltennamen`, die alle Buchstaben von A bis J enthält. Verwende eine List Comprehension mit `chr()`.
 
 ---
 
@@ -369,10 +369,10 @@ if gesuchtes_schiff:
 
 ### Aufgaben
 
-1. Schreibe eine Funktion `noten_text(note)`, die bei 1→`"sehr gut"`, 2→`"gut"`, 3→`"befriedigend"`, 4→`"ausreichend"`, sonst→`"nicht bestanden"` zurückgibt. Nutze `if/elif/else`.
-2. Erstelle ein 5×5 Spielfeld (alle Felder `"."`). Schreibe zwei geschachtelte Schleifen, die jedes Feld ausgeben – zeilenweise.
+1. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `noten_text(note)`, die bei 1→`"sehr gut"`, 2→`"gut"`, 3→`"befriedigend"`, 4→`"ausreichend"`, sonst→`"nicht bestanden"` zurückgibt. Nutze `if/elif/else`.
+2. Erstelle ein 5×5 [Spielfeld (als Liste von Listen)](#4-listen-als-arrays) (alle Felder `"."`). Schreibe zwei geschachtelte Schleifen, die jedes Feld ausgeben – zeilenweise.
 3. Gegeben: `zahlen = [3, 7, 1, 8, 2, 9, 4]`. Schreibe eine Schleife, die abbricht (`break`), sobald sie eine Zahl größer als 7 findet, und diese ausgibt.
-4. Schreibe eine Funktion `finde_schiff(my_ships, zeile, spalte)`, die durch alle Schiffe iteriert und das Schiff zurückgibt, das das Feld `(zeile, spalte)` enthält. Nutze `break`. Gibt `None` zurück, wenn kein Schiff gefunden wird.
+4. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `finde_schiff(my_ships, zeile, spalte)`, die durch alle Schiffe iteriert und das Schiff zurückgibt, das das Feld `(zeile, spalte)` enthält. Nutze `break`. Gibt `None` zurück, wenn kein Schiff gefunden wird.
 
 ---
 
@@ -425,7 +425,7 @@ for i in range(5):
 ### Aufgaben
 
 1. Gegeben: `my_ships = [[(0,0),(0,1)], [(3,5)], [(7,2),(7,3),(7,4)]]`. Gib für jedes Schiff aus: `"Schiff X hat Y Felder"`.
-2. Schreibe eine Funktion `alle_felder(my_ships)`, die eine flache Liste aller belegten Felder zurückgibt. Beispiel: `[[(0,0),(0,1)], [(3,5)]]` → `[(0,0),(0,1),(3,5)]`.
+2. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `alle_felder(my_ships)`, die eine flache [Liste](#4-listen-als-arrays) aller belegten Felder zurückgibt. Beispiel: `[[(0,0),(0,1)], [(3,5)]]` → `[(0,0),(0,1),(3,5)]`.
 3. Iteriere über den String `"SCHUSS:3,5"` und zähle, wie viele Zeichen Ziffern sind (nutze `.isdigit()`).
 4. Schreibe eine Schleife, die alle Felder von `my_ships` durchgeht und prüft, ob das Feld `(3, 5)` enthalten ist. Gib `True` aus falls ja, sonst `False`.
 
@@ -500,6 +500,6 @@ print(any(z > 20 for z in zahlen))  # False
 
 1. Gegeben: `noten = [2, 1, 3, 2, 1]`. Nutze `all()`, um zu prüfen, ob alle Noten besser als 4 sind.
 2. Erkläre in eigenen Worten, was die Zeile `all(my_grid[r][c] == HIT for (r,c) in ship_cells)` macht. Was wird für jedes `(r,c)` berechnet? Was gibt `all()` zurück?
-3. Schreibe eine Funktion `check_sunk(ship_cells, grid)`, die `True` zurückgibt, wenn alle Felder des Schiffes im Grid den Wert `"X"` haben. Nutze `all()` mit einem Generator-Ausdruck.
-4. Schreibe eine Funktion `check_all_sunk(my_ships, grid)`, die `True` zurückgibt, wenn alle Schiffe in `my_ships` versenkt sind. Nutze `all()` und rufe darin `check_sunk()` auf.
+3. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `check_sunk(ship_cells, grid)`, die `True` zurückgibt, wenn alle Felder des Schiffes im Grid den Wert `"X"` haben. Nutze `all()` mit einem Generator-Ausdruck.
+4. Schreibe eine [Funktion](#3-methoden-definieren-und-aufrufen) `check_all_sunk(my_ships, grid)`, die `True` zurückgibt, wenn alle Schiffe in `my_ships` versenkt sind. Nutze `all()` und rufe darin `check_sunk()` auf.
 5. Bonus: Was gibt `all([])` zurück? Teste es und erkläre, warum das Sinn ergibt.
