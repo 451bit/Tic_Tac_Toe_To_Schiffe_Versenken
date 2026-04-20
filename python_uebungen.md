@@ -433,6 +433,38 @@ for i in range(5):
 
 ## 9. Generator-Ausdrücke und `all()`
 
+### List Comprehension – kurze Listen erzeugen
+
+Eine **List Comprehension** ist eine kompakte Schreibweise, um eine neue Liste aus einer bestehenden Sequenz zu erzeugen. Sie ersetzt eine for-Schleife mit `.append()` durch eine einzeilige Formel.
+
+```python
+# Klassisch mit for-Schleife:
+quadrate = []
+for x in range(5):
+    quadrate.append(x * x)
+# quadrate = [0, 1, 4, 9, 16]
+
+# Dasselbe als List Comprehension:
+quadrate = [x * x for x in range(5)]
+# quadrate = [0, 1, 4, 9, 16]
+```
+
+Das Schema lautet immer: `[ausdruck for variable in iterable]`
+
+Optional kann noch eine Bedingung angehängt werden:
+
+```python
+# Nur gerade Zahlen:
+gerade = [x for x in range(10) if x % 2 == 0]
+# [0, 2, 4, 6, 8]
+
+# Alle Spaltenbuchstaben A–J:
+buchstaben = [chr(65 + i) for i in range(10)]
+# ["A", "B", "C", ..., "J"]
+```
+
+---
+
 ### `all()` – sind alle Elemente wahr?
 
 `all(iterable)` gibt `True` zurück, wenn *alle* Elemente des Iterables wahr sind. Sobald ein Element `False` ist, gibt `all()` sofort `False` zurück.
