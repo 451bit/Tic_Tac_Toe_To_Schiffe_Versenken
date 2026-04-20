@@ -198,6 +198,10 @@ Wenn das klappt, funktioniert die Netzwerkverbindung grundsätzlich!
 
 ## Schritt 6: AUFGABE 3 – Nachrichten empfangen und verarbeiten
 
+> 📚 **Neue Python-Konzepte in dieser Aufgabe?**
+> Diese Aufgabe nutzt `split()`, `map()`, Mehrfachzuweisungen, `if/elif/else` und Funktionsaufrufe mit Rückgabewert.
+> → [**Python-Übungsseite öffnen**](python_uebungen.html) – mit Erklärungen und Übungsaufgaben zu allen nötigen Grundlagen.
+
 Das ist **die wichtigste Aufgabe**. Die Funktion `handle_message(msg)` reagiert auf alle eingehenden Nachrichten.
 
 **Wo:** Funktion `handle_message(msg)` bei `❗ AUFGABE 3`

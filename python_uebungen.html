@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python-Übungen für Schiffe Versenken</title>
+  <style>
+    :root {
+      --bg:        #f5f7fa;
+      --card:      #ffffff;
+      --accent:    #2563eb;
+      --accent2:   #16a34a;
+      --warn:      #d97706;
+      --code-bg:   #1e293b;
+      --code-fg:   #e2e8f0;
+      --border:    #e2e8f0;
+      --task-bg:   #eff6ff;
+      --task-bdr:  #93c5fd;
+      --tip-bg:    #f0fdf4;
+      --tip-bdr:   #86efac;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: #1e293b;
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+    .page-wrap { max-width: 860px; margin: 0 auto; }
+
+    h1 { font-size: 2rem; color: var(--accent); margin-bottom: 0.3rem; }
+    .subtitle { color: #64748b; font-size: 1rem; margin-bottom: 2rem; }
+
+    nav {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    nav h2 { font-size: 1rem; color: #64748b; margin-bottom: 0.6rem; letter-spacing: .05em; text-transform: uppercase; }
+    nav ol { padding-left: 1.3rem; }
+    nav li { margin: 0.2rem 0; }
+    nav a { color: var(--accent); text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+    }
+    section h2 {
+      font-size: 1.35rem;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    section h3 { font-size: 1.05rem; color: #334155; margin: 1.4rem 0 0.5rem; }
+
+    p { margin-bottom: 0.8rem; }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 0.6rem 0 1rem;
+      line-height: 1.6;
+    }
+    code { font-family: "Fira Code", "Cascadia Code", monospace; }
+    p code, li code {
+      background: #e2e8f0;
+      color: #0f172a;
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+      font-size: 0.88em;
+    }
+
+    .tasks {
+      background: var(--task-bg);
+      border-left: 4px solid var(--task-bdr);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .tasks h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+    .tasks ol { padding-left: 1.4rem; }
+    .tasks li { margin: 0.45rem 0; }
+
+    .tip {
+      background: var(--tip-bg);
+      border-left: 4px solid var(--tip-bdr);
+      border-radius: 0 8px 8px 0;
+      padding: 0.8rem 1rem;
+      margin: 0.8rem 0;
+      font-size: 0.92rem;
+    }
+    .tip strong { color: var(--accent2); }
+
+    table { border-collapse: collapse; width: 100%; margin: 0.8rem 0 1rem; font-size: 0.9rem; }
+    th { background: #f1f5f9; text-align: left; padding: 0.5rem 0.8rem; border: 1px solid var(--border); }
+    td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      padding: 0.15em 0.7em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <h1>Python-Übungen</h1>
+  <p class="subtitle">Grundlagen für <strong>Schiffe Versenken</strong> &ndash; Text, Listen, Methoden und mehr</p>
+
+  <nav>
+    <h2>Inhalte</h2>
+    <ol>
+      <li><a href="#split">Texte aufteilen mit <code>split()</code></a></li>
+      <li><a href="#map">Mehrfachzuweisung mit <code>map()</code></a></li>
+      <li><a href="#methoden">Methoden (Funktionen) definieren und aufrufen</a></li>
+      <li><a href="#listen">Listen als Arrays</a></li>
+      <li><a href="#tupel">Tupel</a></li>
+      <li><a href="#chr">Zeichen und ASCII: <code>chr()</code> und <code>ord()</code></a></li>
+      <li><a href="#verzweigung">Mehrfachverzweigungen und geschachtelte Schleifen</a></li>
+      <li><a href="#for">For-Schleifen mit iterierbaren Objekten</a></li>
+      <li><a href="#all">Generator-Ausdrücke und <code>all()</code></a></li>
+    </ol>
+  </nav>
+
+  <!-- ── 1. split() ───────────────────────────────────────────────── -->
+  <section id="split">
+    <h2><span class="badge">1</span> Texte aufteilen mit <code>split()</code></h2>
+
+    <p>
+      <code>split(trennzeichen)</code> zerlegt einen String anhand eines Trennzeichens
+      und gibt eine <strong>Liste</strong> von Teilstrings zurück.
+    </p>
+
+    <h3>Grundprinzip</h3>
+<pre><code>text = "Hallo,Welt,Python"
+teile = text.split(",")   # ["Hallo", "Welt", "Python"]
+print(teile[0])           # "Hallo"
+print(teile[2])           # "Python"
+</code></pre>
+
+    <h3>Im Spiel: Nachrichten auseinandernehmen</h3>
+    <p>
+      Wenn ein Spieler eine Nachricht wie <code>"SCHUSS:3,5"</code> empfängt, muss er
+      Befehl und Koordinaten trennen:
+    </p>
+<pre><code>nachricht = "SCHUSS:3,5"
+
+# Befehl und Parameter trennen
+teile   = nachricht.split(":")   # ["SCHUSS", "3,5"]
+befehl  = teile[0]               # "SCHUSS"
+params  = teile[1]               # "3,5"
+
+# Parameter weiter aufteilen
+coords  = params.split(",")      # ["3", "5"]
+zeile   = coords[0]              # "3"  (noch ein String!)
+spalte  = coords[1]              # "5"
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>Gegeben: <code>s = "rot,grün,blau,gelb"</code>. Teile den String auf und gib das dritte Element aus.</li>
+        <li>
+          Gegeben: <code>msg = "WASSER:7,2"</code>. Schreibe Code, der
+          <code>befehl</code>, <code>zeile</code> und <code>spalte</code> als separate Variablen enthält.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>parse_msg(msg)</code>, die eine Nachricht im Format
+          <code>"BEFEHL:zeile,spalte"</code> entgegennimmt und ein Tupel <code>(befehl, zeile, spalte)</code>
+          zurückgibt (zeile und spalte als <code>int</code>).
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 2. map() ─────────────────────────────────────────────────── -->
+  <section id="map">
+    <h2><span class="badge">2</span> Mehrfachzuweisung mit <code>map()</code></h2>
+
+    <p>
+      <code>map(funktion, iterable)</code> wendet eine Funktion auf jedes Element einer
+      Liste (oder eines anderen Iterables) an und gibt das Ergebnis als map-Objekt zurück.
+      Dieses kann direkt auf mehrere Variablen <em>entpackt</em> werden.
+    </p>
+
+    <h3>Schritt für Schritt</h3>
+<pre><code># Ausgangspunkt: zwei Zahlen als Strings
+koordinaten = ["3", "5"]
+
+# int() auf jeden Eintrag anwenden
+zahlen = map(int, koordinaten)   # entspricht [int("3"), int("5")]
+
+# Ergebnis auf zwei Variablen verteilen (Entpacken / Unpacking)
+zeile, spalte = zahlen
+print(zeile)    # 3
+print(spalte)   # 5
+</code></pre>
+
+    <p>In einer einzigen Zeile – so steht es auch im Spiel:</p>
+<pre><code>zeile, spalte = map(int, "3,5".split(","))
+</code></pre>
+
+    <div class="tip">
+      <strong>Hinweis:</strong> <code>map()</code> liefert kein direktes Listen-Objekt.
+      Du kannst es aber mit <code>list(...)</code> umwandeln: <code>list(map(int, werte))</code>
+    </div>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Gegeben: <code>text = "10,20,30"</code>. Nutze <code>map()</code>, um drei Integer-Variablen
+          <code>a</code>, <code>b</code>, <code>c</code> zu befüllen.
+        </li>
+        <li>
+          Was passiert, wenn du versuchst <code>x, y = map(int, "3,5,7".split(","))</code> auszuführen?
+          Probiere es aus und erkläre die Fehlermeldung.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>parse_coords(text)</code>, die einen String wie <code>"3,5"</code>
+          entgegennimmt und ein Tupel <code>(int, int)</code> zurückgibt.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 3. Methoden ──────────────────────────────────────────────── -->
+  <section id="methoden">
+    <h2><span class="badge">3</span> Methoden definieren und aufrufen</h2>
+
+    <p>
+      Eine <strong>Funktion</strong> (in Python auch <em>Methode</em> genannt, wenn sie in einer Klasse liegt)
+      wird mit dem Schlüsselwort <code>def</code> definiert.
+    </p>
+
+    <h3>Vier Varianten</h3>
+
+    <table>
+      <tr><th>Variante</th><th>Beispiel</th></tr>
+      <tr><td>Kein Parameter, keine Rückgabe</td><td><code>def gruss():</code></td></tr>
+      <tr><td>Mit Parametern, keine Rückgabe</td><td><code>def gruss(name):</code></td></tr>
+      <tr><td>Kein Parameter, mit Rückgabe</td><td><code>def zufallszahl():</code></td></tr>
+      <tr><td>Mit Parametern und Rückgabe</td><td><code>def addiere(a, b):</code></td></tr>
+    </table>
+
+<pre><code># Kein Parameter, keine Rückgabe
+def begruessung():
+    print("Hallo!")
+
+begruessung()   # Aufruf
+
+
+# Mit Parametern, keine Rückgabe
+def zeige_feld(zeile, spalte):
+    print(f"Zeile {zeile}, Spalte {spalte}")
+
+zeige_feld(3, 5)   # Aufruf
+
+
+# Kein Parameter, mit Rückgabe
+def spielname():
+    return "Schiffe Versenken"
+
+name = spielname()
+print(name)
+
+
+# Mit Parametern und Rückgabe
+def addiere(a, b):
+    return a + b
+
+summe = addiere(3, 4)
+print(summe)   # 7
+</code></pre>
+
+    <h3>Aus dem Spiel: Aufruf mit Rückgabewert</h3>
+<pre><code>def check_sunk(ship_cells):
+    # gibt True oder False zurück
+    return all(my_grid[r][c] == HIT for (r, c) in ship_cells)
+
+# Aufruf und Nutzung des Rückgabewerts:
+if check_sunk(mein_schiff):
+    print("Versenkt!")
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Schreibe eine Funktion <code>begruessung(name)</code>, die
+          <code>"Hallo, [name]!"</code> ausgibt. Rufe sie mit deinem Namen auf.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>quadrat(n)</code>, die <code>n * n</code> zurückgibt.
+          Gib das Ergebnis für <code>n = 7</code> aus.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>ist_treffer(wert)</code>, die <code>True</code> zurückgibt,
+          wenn <code>wert == "X"</code>, sonst <code>False</code>.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>feld_name(zeile, spalte)</code>, die den Feldnamen
+          zurückgibt (z.B. <code>zeile=3, spalte=5</code> → <code>"F4"</code>).
+          Tipp: Spalte A = 0, B = 1, ... – nutze <code>chr(65 + spalte)</code>.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 4. Listen ────────────────────────────────────────────────── -->
+  <section id="listen">
+    <h2><span class="badge">4</span> Listen als Arrays</h2>
+
+    <p>
+      In Python werden Listen wie Arrays in anderen Sprachen verwendet.
+      Sie können beliebige Werte speichern und wachsen dynamisch.
+    </p>
+
+    <h3>Erstellen, Zugreifen, Verändern</h3>
+<pre><code># Erstellen
+farben = ["rot", "grün", "blau"]
+
+# Zugreifen (Index beginnt bei 0)
+print(farben[0])    # "rot"
+print(farben[-1])   # "blau" (letztes Element)
+
+# Verändern
+farben[1] = "gelb"
+print(farben)       # ["rot", "gelb", "blau"]
+
+# Anhängen
+farben.append("lila")
+
+# Länge
+print(len(farben))  # 4
+</code></pre>
+
+    <h3>Zweidimensionale Listen (wie ein Spielfeld)</h3>
+<pre><code># 3×3 Spielfeld als Liste von Listen
+feld = [
+    [".", ".", "."],
+    [".", ".", "."],
+    [".", ".", "."]
+]
+
+# Zugriff: feld[zeile][spalte]
+feld[1][2] = "X"    # Zeile 1, Spalte 2 setzen
+print(feld[1][2])   # "X"
+
+
+# Spielfeld mit 10×10 Felder erstellen
+WATER = "."
+my_grid = [[WATER] * 10 for _ in range(10)]
+</code></pre>
+
+    <h3>Liste von Tupeln (wie Schiffskoordinaten)</h3>
+<pre><code># Ein Schiff belegt Felder (0,0), (0,1), (0,2)
+schiff = [(0, 0), (0, 1), (0, 2)]
+
+# Über alle Felder des Schiffes iterieren
+for (zeile, spalte) in schiff:
+    print(f"Feld: Zeile {zeile}, Spalte {spalte}")
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>Erstelle eine Liste mit den Zahlen 1 bis 5 und gib das dritte Element aus.</li>
+        <li>
+          Erstelle ein 4×4 Spielfeld (als Liste von Listen), bei dem alle Felder den Wert
+          <code>"."</code> haben. Setze das Feld in Zeile 2, Spalte 3 auf <code>"X"</code>.
+        </li>
+        <li>
+          Gegeben: <code>my_ships = [[(0,0),(0,1)], [(3,5)], [(7,2),(7,3),(7,4)]]</code>.
+          Gib aus, wie viele Schiffe es gibt und wie viele Felder das dritte Schiff belegt.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>setze_schiff(grid, schiff_felder)</code>, die alle
+          Felder aus <code>schiff_felder</code> im Grid auf <code>"S"</code> setzt.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 5. Tupel ─────────────────────────────────────────────────── -->
+  <section id="tupel">
+    <h2><span class="badge">5</span> Tupel</h2>
+
+    <p>
+      Ein <strong>Tupel</strong> ist wie eine Liste, aber <em>unveränderlich</em> (immutable).
+      Tupel werden mit runden Klammern erstellt und eignen sich gut für
+      zusammengehörige Werte wie Koordinaten.
+    </p>
+
+    <h3>Erstellen und Zugreifen</h3>
+<pre><code># Tupel erstellen
+koordinate = (3, 5)       # Zeile 3, Spalte 5
+
+# Zugreifen (wie bei Listen)
+zeile  = koordinate[0]    # 3
+spalte = koordinate[1]    # 5
+
+# Entpacken (Unpacking) – sehr praktisch!
+zeile, spalte = koordinate
+print(zeile)    # 3
+print(spalte)   # 5
+</code></pre>
+
+    <h3>Tupel vs. Liste</h3>
+    <table>
+      <tr><th>Eigenschaft</th><th>Liste <code>[]</code></th><th>Tupel <code>()</code></th></tr>
+      <tr><td>Veränderbar?</td><td>Ja</td><td>Nein</td></tr>
+      <tr><td>Für was?</td><td>Sammlungen, die sich ändern</td><td>Feste Wertepaare (z.B. Koordinaten)</td></tr>
+    </table>
+
+    <h3>Tupel in for-Schleifen entpacken</h3>
+<pre><code>schiff = [(0, 0), (0, 1), (0, 2)]
+
+for (r, c) in schiff:
+    print(f"Prüfe Feld ({r}, {c})")
+
+# Kurzform ohne Klammern funktioniert auch:
+for r, c in schiff:
+    print(r, c)
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Erstelle ein Tupel <code>schuss = (4, 7)</code> und entpacke es in
+          <code>zeile</code> und <code>spalte</code>. Gib beide aus.
+        </li>
+        <li>
+          Erkläre: Was passiert, wenn du versuchst <code>schuss[0] = 9</code> auszuführen?
+          Warum ist das so?
+        </li>
+        <li>
+          Gegeben: <code>treffer_liste = [(1,2), (1,3), (1,4)]</code>.
+          Schreibe eine for-Schleife, die jede Koordinate entpackt und
+          <code>"Getroffen: Zeile X, Spalte Y"</code> ausgibt.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>mittelpunkt(p1, p2)</code>, die zwei Koordinaten-Tupel
+          bekommt und den Mittelpunkt als neues Tupel zurückgibt.
+          Beispiel: <code>mittelpunkt((2,4), (6,8))</code> → <code>(4, 6)</code>.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 6. chr() / ord() ─────────────────────────────────────────── -->
+  <section id="chr">
+    <h2><span class="badge">6</span> Zeichen und ASCII: <code>chr()</code> und <code>ord()</code></h2>
+
+    <p>
+      Jedes Zeichen hat einen numerischen ASCII-Code.
+      <code>chr(n)</code> wandelt eine Zahl in das entsprechende Zeichen um,
+      <code>ord(c)</code> macht das Umgekehrte.
+    </p>
+
+    <h3>Die wichtigsten Werte</h3>
+    <table>
+      <tr><th>Funktion</th><th>Eingabe</th><th>Ergebnis</th><th>Erklärung</th></tr>
+      <tr><td><code>chr(65)</code></td><td>65</td><td><code>"A"</code></td><td>Großbuchstabe A</td></tr>
+      <tr><td><code>chr(66)</code></td><td>66</td><td><code>"B"</code></td><td>Großbuchstabe B</td></tr>
+      <tr><td><code>chr(65+9)</code></td><td>74</td><td><code>"J"</code></td><td>10. Buchstabe (Spalte 9 → "J")</td></tr>
+      <tr><td><code>ord("A")</code></td><td>"A"</td><td>65</td><td>Rückrichtung</td></tr>
+    </table>
+
+    <h3>Im Spiel: Spaltennummer → Buchstabe</h3>
+<pre><code># Spalte 0 → "A", Spalte 5 → "F", ...
+def spalte_zu_buchstabe(spalte):
+    return chr(65 + spalte)
+
+print(spalte_zu_buchstabe(0))   # "A"
+print(spalte_zu_buchstabe(5))   # "F"
+print(spalte_zu_buchstabe(9))   # "J"
+
+
+# Feldname aus Zeile und Spalte (z.B. 3,5 → "F4")
+def feld_name(zeile, spalte):
+    return chr(65 + spalte) + str(zeile + 1)
+
+print(feld_name(3, 5))   # "F4"
+print(feld_name(0, 0))   # "A1"
+</code></pre>
+
+    <div class="tip">
+      <strong>Warum <code>65 + spalte</code>?</strong>
+      Der ASCII-Code von "A" ist 65. Spalte 0 soll "A" sein,
+      also ist Spalte <em>n</em> der Buchstabe mit Code 65 + n.
+    </div>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>Welches Zeichen ergibt <code>chr(72)</code>? Finde die Antwort per Code.</li>
+        <li>
+          Schreibe eine Schleife, die alle Spaltenbuchstaben A bis J ausgibt
+          (also für Spalten 0 bis 9).
+        </li>
+        <li>
+          Schreibe eine Funktion <code>buchstabe_zu_spalte(buchstabe)</code>, die
+          den umgekehrten Weg geht: <code>"A"</code> → 0, <code>"F"</code> → 5.
+          Nutze <code>ord()</code>.
+        </li>
+        <li>
+          Erstelle eine Liste <code>spaltennamen</code>, die alle Buchstaben von A bis J enthält.
+          Verwende eine List Comprehension mit <code>chr()</code>.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 7. Verzweigungen + Schleifen ─────────────────────────────── -->
+  <section id="verzweigung">
+    <h2><span class="badge">7</span> Mehrfachverzweigungen und geschachtelte Schleifen</h2>
+
+    <h3><code>if / elif / else</code> – Mehrfachverzweigung</h3>
+    <p>
+      Mit <code>elif</code> (kurz für "else if") prüft man mehrere Bedingungen nacheinander.
+      Sobald eine passt, werden die anderen übersprungen.
+    </p>
+<pre><code>def bewerte_schuss(ergebnis):
+    if ergebnis == "TREFFER":
+        print("Volltreffer!")
+    elif ergebnis == "WASSER":
+        print("Daneben!")
+    elif ergebnis == "VERSENKT":
+        print("Schiff versenkt!")
+    else:
+        print("Unbekanntes Ergebnis")
+
+bewerte_schuss("TREFFER")   # Volltreffer!
+bewerte_schuss("WASSER")    # Daneben!
+</code></pre>
+
+    <h3>Geschachtelte Schleifen</h3>
+    <p>
+      Für zweidimensionale Felder braucht man oft <em>Schleifen in Schleifen</em>.
+      Die äußere läuft über die Zeilen, die innere über die Spalten.
+    </p>
+<pre><code># Alle Felder eines 3×3 Spielfelds durchlaufen
+feld = [[".", "X", "."],
+        [".", ".", "X"],
+        ["X", ".", "."]]
+
+for zeile in range(3):
+    for spalte in range(3):
+        if feld[zeile][spalte] == "X":
+            print(f"Treffer bei ({zeile},{spalte})")
+</code></pre>
+
+    <h3><code>break</code> – Schleife vorzeitig beenden</h3>
+    <p>
+      <code>break</code> verlässt sofort die <em>innerste</em> Schleife, in der es steht.
+      Das ist nützlich, wenn man etwas gefunden hat und nicht weitersuchen muss.
+    </p>
+<pre><code># Gesuchtes Schiff finden und dann aufhören
+gesuchtes_schiff = None
+
+for schiff in my_ships:
+    if (3, 5) in schiff:
+        gesuchtes_schiff = schiff
+        break            # gefunden – Schleife abbrechen
+
+if gesuchtes_schiff:
+    print("Schiff gefunden:", gesuchtes_schiff)
+</code></pre>
+
+    <div class="tip">
+      <strong>Wichtig:</strong> <code>break</code> verlässt nur die direkt umgebende Schleife.
+      Bei geschachtelten Schleifen läuft die äußere Schleife weiter.
+    </div>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Schreibe eine Funktion <code>noten_text(note)</code>, die bei
+          1→"sehr gut", 2→"gut", 3→"befriedigend", 4→"ausreichend", sonst→"nicht bestanden" zurückgibt.
+          Nutze <code>if/elif/else</code>.
+        </li>
+        <li>
+          Erstelle ein 5×5 Spielfeld (alle Felder <code>"."</code>). Schreibe zwei
+          geschachtelte Schleifen, die jedes Feld ausgeben – zeilenweise.
+        </li>
+        <li>
+          Gegeben: <code>zahlen = [3, 7, 1, 8, 2, 9, 4]</code>.
+          Schreibe eine Schleife, die abbricht (<code>break</code>), sobald sie eine Zahl
+          größer als 7 findet, und diese ausgibt.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>finde_schiff(my_ships, zeile, spalte)</code>,
+          die durch alle Schiffe iteriert und das Schiff zurückgibt, das das Feld
+          <code>(zeile, spalte)</code> enthält. Nutze <code>break</code>.
+          Gibt <code>None</code> zurück, wenn kein Schiff gefunden wird.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 8. For + Iterables ───────────────────────────────────────── -->
+  <section id="for">
+    <h2><span class="badge">8</span> For-Schleifen mit iterierbaren Objekten</h2>
+
+    <p>
+      Ein <strong>iterierbares Objekt</strong> ist alles, über das man mit
+      <code>for</code> Element für Element iterieren kann – z.B. Listen, Tupel, Strings oder
+      die Ergebnisse von <code>range()</code>.
+    </p>
+
+    <h3>Über eine Liste iterieren</h3>
+<pre><code># Einfache Liste
+farben = ["rot", "grün", "blau"]
+for farbe in farben:
+    print(farbe)
+# Ausgabe: rot, grün, blau (je eine Zeile)
+</code></pre>
+
+    <h3>Über eine Liste von Listen (Schiffe)</h3>
+<pre><code>my_ships = [
+    [(0, 0), (0, 1), (0, 2), (0, 3)],   # Schlachtschiff
+    [(3, 5), (4, 5), (5, 5)],            # Kreuzer 1
+    [(7, 2)],                             # U-Boot
+]
+
+# Durch alle Schiffe iterieren
+for schiff in my_ships:
+    print(f"Schiff hat {len(schiff)} Feld(er): {schiff}")
+
+# Durch alle Felder jedes Schiffes iterieren
+for schiff in my_ships:
+    for (r, c) in schiff:
+        print(f"  Feld: ({r}, {c})")
+</code></pre>
+
+    <h3>Was bedeutet "iterierbar"?</h3>
+    <p>
+      Python kann automatisch über jedes Objekt iterieren, das eine
+      <em>Sequenz von Elementen</em> hat. Du musst nicht wissen, wie das intern
+      funktioniert – es reicht zu wissen: Listen, Tupel, Strings und
+      <code>range()</code> sind iterierbar.
+    </p>
+<pre><code># String ist iterierbar: jeder Buchstabe ist ein Element
+for buchstabe in "Hallo":
+    print(buchstabe)
+
+# range() liefert Zahlen
+for i in range(5):
+    print(i)    # 0, 1, 2, 3, 4
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Gegeben: <code>my_ships = [[(0,0),(0,1)], [(3,5)], [(7,2),(7,3),(7,4)]]</code>.
+          Gib für jedes Schiff aus: <code>"Schiff X hat Y Felder"</code>.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>alle_felder(my_ships)</code>, die eine flache Liste
+          aller belegten Felder zurückgibt.
+          Beispiel: <code>[[(0,0),(0,1)], [(3,5)]]</code> → <code>[(0,0),(0,1),(3,5)]</code>.
+        </li>
+        <li>
+          Iteriere über den String <code>"SCHUSS:3,5"</code> und zähle, wie viele Zeichen
+          Ziffern sind (nutze die Methode <code>.isdigit()</code>).
+        </li>
+        <li>
+          Schreibe eine Schleife, die alle Felder von <code>my_ships</code> durchgeht und
+          prüft, ob das Feld <code>(3, 5)</code> enthalten ist. Gib <code>True</code> aus
+          falls ja, sonst <code>False</code>.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 9. all() + Generator ─────────────────────────────────────── -->
+  <section id="all">
+    <h2><span class="badge">9</span> Generator-Ausdrücke und <code>all()</code></h2>
+
+    <h3><code>all()</code> – sind alle Elemente wahr?</h3>
+    <p>
+      <code>all(iterable)</code> gibt <code>True</code> zurück, wenn
+      <em>alle</em> Elemente des Iterables "truthy" (also wahr) sind.
+      Sobald ein Element <code>False</code> ist, gibt <code>all()</code> sofort <code>False</code> zurück.
+    </p>
+<pre><code>print(all([True, True, True]))    # True
+print(all([True, False, True]))   # False
+print(all([]))                    # True (leere Liste – Sonderfall!)
+</code></pre>
+
+    <h3>Generator-Ausdruck</h3>
+    <p>
+      Ein <strong>Generator-Ausdruck</strong> sieht aus wie eine List Comprehension,
+      steht aber in runden statt eckigen Klammern. Er berechnet Werte <em>eines nach dem anderen</em>,
+      ohne alles auf einmal in den Speicher zu laden.
+    </p>
+<pre><code># List Comprehension (erstellt eine vollständige Liste):
+quadrate_liste = [x * x for x in range(5)]   # [0, 1, 4, 9, 16]
+
+# Generator-Ausdruck (berechnet Werte bei Bedarf):
+quadrate_gen = (x * x for x in range(5))
+</code></pre>
+
+    <p>
+      <code>all()</code> kann direkt einen Generator-Ausdruck verwenden – das ist effizient,
+      weil es abbricht, sobald ein <code>False</code> auftritt.
+    </p>
+
+    <h3>Im Spiel: Ist ein Schiff versenkt?</h3>
+<pre><code>HIT = "X"
+
+# Spielfeld (Ausschnitt)
+my_grid = [
+    ["X", "X", "X", "."],   # Zeile 0: erstes Schiff getroffen (alle drei Felder)
+    [".", ".", ".", "."],
+]
+
+# Schiff auf Zeile 0, Spalten 0–2
+ship_cells = [(0, 0), (0, 1), (0, 2)]
+
+# Prüfung: sind alle Felder des Schiffes mit HIT markiert?
+versenkt = all(my_grid[r][c] == HIT for (r, c) in ship_cells)
+print(versenkt)   # True
+</code></pre>
+
+    <p>Was passiert hier genau in der Zeile:</p>
+    <pre><code>all(my_grid[r][c] == HIT for (r, c) in ship_cells)</code></pre>
+
+    <ol style="margin: 0.5rem 0 0.8rem 1.5rem;">
+      <li>Der Generator geht durch jedes Tupel <code>(r, c)</code> in <code>ship_cells</code></li>
+      <li>Für jedes Tupel wird <code>(r, c)</code> entpackt</li>
+      <li><code>my_grid[r][c] == HIT</code> ergibt <code>True</code> oder <code>False</code></li>
+      <li><code>all()</code> prüft: sind <em>alle</em> dieser Werte <code>True</code>?</li>
+    </ol>
+
+    <div class="tip">
+      <strong>Kurzschlussauswertung:</strong> Sobald <code>all()</code> ein <code>False</code>
+      trifft, hört es auf zu prüfen. Das spart Rechenzeit bei großen Listen.
+    </div>
+
+    <h3>Verwandte Funktion: <code>any()</code></h3>
+<pre><code># any() gibt True zurück wenn MINDESTENS EIN Element True ist
+zahlen = [1, 3, 7, 10, 2]
+print(any(z > 8 for z in zahlen))   # True (10 > 8)
+print(any(z > 20 for z in zahlen))  # False
+</code></pre>
+
+    <div class="tasks">
+      <h4>Aufgaben</h4>
+      <ol>
+        <li>
+          Gegeben: <code>noten = [2, 1, 3, 2, 1]</code>.
+          Nutze <code>all()</code>, um zu prüfen, ob alle Noten besser als 4 sind.
+        </li>
+        <li>
+          Erkläre in eigenen Worten, was die Zeile
+          <code>all(my_grid[r][c] == HIT for (r,c) in ship_cells)</code> macht.
+          Was wird für jedes <code>(r,c)</code> berechnet? Was gibt <code>all()</code> zurück?
+        </li>
+        <li>
+          Schreibe eine Funktion <code>check_sunk(ship_cells, grid)</code>,
+          die <code>True</code> zurückgibt, wenn alle Felder des Schiffes im Grid
+          den Wert <code>"X"</code> haben. Nutze <code>all()</code> mit einem Generator-Ausdruck.
+        </li>
+        <li>
+          Schreibe eine Funktion <code>check_all_sunk(my_ships, grid)</code>,
+          die <code>True</code> zurückgibt, wenn alle Schiffe in <code>my_ships</code> versenkt sind.
+          Nutze <code>all()</code> und rufe darin <code>check_sunk()</code> auf.
+        </li>
+        <li>
+          Bonus: Was gibt <code>all([])</code> zurück? Teste es und erkläre, warum das Sinn ergibt.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <footer style="text-align:center; color:#94a3b8; font-size:0.85rem; margin-top:2rem; padding-bottom:1rem;">
+    Viel Erfolg beim Programmieren! 🚢
+  </footer>
+
+</div>
+</body>
+</html>
